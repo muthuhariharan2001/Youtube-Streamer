@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="video-title">{{ video.title }}</h1>
+    
+    <div class="video-player">
+        <video autoplay loop controls>
+            <source src="{{ video.video_file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <p class="video-description">{{ video.description }}</p>
+    
+    <div class="like-section">
+        <form method="post" action="{% url 'like_video' video.id %}">
+            {% csrf_token %}
+            <button type="submit" class="like-button">
+                {% if is_liked %} Unlike {% else %} Like {% endif %}
+            </button>
+        </form>
+        <p class="like-count">{{ total_likes }} likes</p>
+    </div>
+
+    <h2 class="comments-title">Comments</h2>
+    <ul class="comments-list">
+        {% for comment in comments %}
+            <li class="comment-item">{{ comment.user.username }}: {{ comment.text }}</li>
+        {% endfor %}
+    </ul>
+    
+    {% if user.is_authenticated %}
+        <form method="post" class="comment-form">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="submit-comment-button">Add Comment</button>
+        </form>
+    {% else %}
+        <p class="login-prompt">You must be logged in to comment.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .video-title {
+        text-align: center;
+        font-size: 2em;
+        margin-top: 20px;
+    }
+    
+    .video-player {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    
+    video {
+        width: 100%;
+        max-width: 800px;
+        border-radius: 10px;
+    }
+    
+    .video-description {
+        text-align: center;
+        color: #444;
+        margin-bottom: 20px;
+    }
+    
+    .like-section {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .like-button {
+        padding: 10px 20px;
+        font-size: 1em;
+        color: #fff;
+        background-color: #cc0000;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .like-count {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+    
+    .comments-title {
+        font-size: 1.5em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .comments-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .comment-item {
+        margin-bottom: 10px;
+    }
+    
+    .comment-form {
+        margin-top: 20px;
+        border: none;
+        outline: none;
+
+    }
+    
+    .submit-comment-button {
+        padding: 10px 20px;
+        font-size: 1em;
+        color: #fff;
+        background-color: #cc0000;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .login-prompt {
+        text-align: center;
+        color: #666;
+        font-size: 1.1em;
+    }
+    
+    @media (max-width: 768px) {
+        video {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
