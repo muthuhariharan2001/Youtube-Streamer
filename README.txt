@@ -34,7 +34,7 @@ Start the development server:
 python manage.py runserver
 You can also specify a custom port if needed:
 
-*python manage.py runserver 4562*
+python manage.py runserver 4562
 
 Visit http://127.0.0.1:8000/ (or your custom port) to view the project.
 
