@@ -25,7 +25,7 @@ Create Superuser
 To access the admin panel, create a superuser:
 
 
-**python manage.py createsuperuser
+python manage.py createsuperuser
 Follow the prompts to set up your superuser account.
 
 Running the Server
