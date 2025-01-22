@@ -11,8 +11,8 @@ To set up the project on your local machine, follow these steps:
 Clone the Repository
 
 
-git clone [repository-url]
-cd [project-directory]
+git clone Repository URL
+cd Youtube-Streamer
 
 
 Database Setup
@@ -25,7 +25,7 @@ Create Superuser
 To access the admin panel, create a superuser:
 
 
-python manage.py createsuperuser
+**python manage.py createsuperuser**
 Follow the prompts to set up your superuser account.
 
 Running the Server
